@@ -110,10 +110,10 @@ namespace GradeBook.GradeBooks
             }
         }
 
-        public virtual double GetGPA(char letterGrade, StudentType studentType) //9
+        public virtual double GetGPA(char letterGrade, StudentType studentType)
         {
-            double gpa = letterGrade switch 
-            { 
+            double gpa = letterGrade switch
+            {
                 'A' => 4,
                 'B' => 3,
                 'C' => 2,
@@ -122,12 +122,12 @@ namespace GradeBook.GradeBooks
                 _ => 0,
             };
 
-            if (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
+            if (IsWeighted && (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)) //fix 3
             {
                 gpa += 1;
             }
 
-            return gpa;
+            return gpa; //fix 3.1
         }
 
         public virtual void CalculateStatistics() //10

@@ -86,7 +86,9 @@ namespace GradeBook.UserInterfaces
             Console.WriteLine();
             Console.WriteLine("GradeBook accepts the following commands:");
             Console.WriteLine();
-            Console.WriteLine("Create 'Name' 'Type' 'Weighted' - Creates a new gradebook with the name, type (standard/ranked), and whether it's weighted (true/false)."); //13.0.0.1
+            Console.WriteLine("Create 'Name' 'Type' 'Weighted' - Creates a new gradebook where 'Name' is the name of the gradebook, 'Type' is what type of grading it should use, and 'Weighted' is whether or not grades should be weighted (true or false)."); //fix 1
+            Console.WriteLine("Supported types: Standard, Ranked."); //fix 2
+            Console.WriteLine("Add 'true' or 'false' to determine if it's weighted."); //fix 2.1
             Console.WriteLine();
             Console.WriteLine("Load 'Name' - Loads the gradebook with the provided 'Name'.");
             Console.WriteLine();
