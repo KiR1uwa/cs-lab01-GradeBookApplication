@@ -128,7 +128,7 @@ namespace GradeBook.GradeBooks
             return gpa;
         }
 
-        public virtual void CalculateStatistics()
+        public virtual void CalculateStatistics() //10
         {
             var allStudentsPoints = 0d;
             var campusPoints = 0d;
@@ -138,6 +138,14 @@ namespace GradeBook.GradeBooks
             var standardPoints = 0d;
             var honorPoints = 0d;
             var dualEnrolledPoints = 0d;
+
+            var standardGPA = 0d;
+            var honorGPA = 0d;
+            var dualEnrolledGPA = 0d;
+
+            var standardCount = 0;
+            var honorCount = 0;
+            var dualEnrolledCount = 0;
 
             foreach (var student in Students)
             {
@@ -167,17 +175,31 @@ namespace GradeBook.GradeBooks
                 {
                     case StudentType.Standard:
                         standardPoints += student.AverageGrade;
+                        standardGPA += student.GPA;
+                        standardCount++;
                         break;
                     case StudentType.Honors:
                         honorPoints += student.AverageGrade;
+                        honorGPA += student.GPA;
+                        honorCount++;
                         break;
                     case StudentType.DualEnrolled:
                         dualEnrolledPoints += student.AverageGrade;
+                        dualEnrolledGPA += student.GPA;
+                        dualEnrolledCount++;
                         break;
                 }
             }
 
-            // #todo refactor into it's own method with calculations performed here
+            if (standardCount > 0)
+                Console.WriteLine("Average GPA for Standard students: " + (standardGPA / standardCount));
+
+            if (honorCount > 0)
+                Console.WriteLine("Average GPA for Honors students: " + (honorGPA / honorCount));
+
+            if (dualEnrolledCount > 0)
+                Console.WriteLine("Average GPA for DualEnrolled students: " + (dualEnrolledGPA / dualEnrolledCount));
+
             Console.WriteLine("Average Grade of all students is " + (allStudentsPoints / Students.Count));
             if (campusPoints != 0)
                 Console.WriteLine("Average for only local students is " + (campusPoints / Students.Where(e => e.Enrollment == EnrollmentType.Campus).Count()));
