@@ -78,8 +78,7 @@ namespace GradeBook.GradeBooks
                 Console.WriteLine("{0} : {1} : {2}", student.Name, student.Type, student.Enrollment);
             }
         }
-
-        public static BaseGradeBook Load(string name)
+        public static BaseGradeBook Load(string name) //11.1
         {
             if (!File.Exists(name + ".gdbk"))
             {
@@ -92,22 +91,25 @@ namespace GradeBook.GradeBooks
                 using (var reader = new StreamReader(file))
                 {
                     var json = reader.ReadToEnd();
-                    return ConvertToGradeBook(json);
+                    var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+                    return JsonConvert.DeserializeObject<BaseGradeBook>(json, settings);
                 }
             }
         }
 
-        public void Save()
+        public void Save() //11.2
         {
             using (var file = new FileStream(Name + ".gdbk", FileMode.Create, FileAccess.Write))
             {
                 using (var writer = new StreamWriter(file))
                 {
-                    var json = JsonConvert.SerializeObject(this);
+                    var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+                    var json = JsonConvert.SerializeObject(this, settings);
                     writer.Write(json);
                 }
             }
         }
+
         public virtual double GetGPA(char letterGrade, StudentType studentType) //9
         {
             double gpa = letterGrade switch 
